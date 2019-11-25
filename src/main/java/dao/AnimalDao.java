@@ -9,4 +9,6 @@ public interface AnimalDao {
     void add(Animal animal) throws DaoException;
 
     List<Animal> getAll();
+
+    void clearAll();
 }

@@ -11,4 +11,6 @@ public interface SightingDao {
     List<Sighting> getAll();
 
     List<Sighting> findByAnimalId(int animalId);
+
+    void clearAll();
 }

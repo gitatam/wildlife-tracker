@@ -32,6 +32,19 @@ public class Sql2oAnimalDao implements AnimalDao {
 
     @Override
     public List<Animal> getAll() {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM animals")
+                    .executeAndFetch(Animal.class);
+        }
+    }
+
+    @Override
+    public void clearAll() {
+        String sql = "DELETE from animals";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql).executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 }
