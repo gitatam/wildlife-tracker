@@ -25,7 +25,6 @@ public class Sql2oAnimalDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        System.out.println("clearing database");
         animalDao.clearAll();
         conn.close();
     }
@@ -47,7 +46,7 @@ public class Sql2oAnimalDaoTest {
     }
 
     @Test
-    public void getAnimalWhenNull_ReturnsEmptyList_true() {
+    public void getAll_WhenNullReturnsEmptyList_true() {
         assertEquals(0, animalDao.getAll().size());
     }
 
