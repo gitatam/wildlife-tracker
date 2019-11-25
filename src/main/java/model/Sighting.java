@@ -8,7 +8,7 @@ public class Sighting {
     private String ranger;
     private String location;
 
-    public Sighting(int animalId, String ranger, String location, Timestamp lastSeen) {
+    public Sighting(int animalId, String ranger, String location) {
         this.animalId = animalId;
         this.ranger = ranger;
         this.location = location;
