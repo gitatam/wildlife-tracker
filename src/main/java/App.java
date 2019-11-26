@@ -20,13 +20,27 @@ public class App {
         AnimalDao animalDao = new Sql2oAnimalDao(sql2o);
         SightingDao sightingDao = new Sql2oSightingDao(sql2o);
 
-        before((req, res) ->{
+        before((req, res) -> {
             if (req.cookie("username") != null) {
                 req.attribute("username", req.cookie("username"));
             }
-        } );
+        });
 
         before("/animals", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/");
+                halt();
+            }
+        });
+
+        before("/animals/:id", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/");
+                halt();
+            }
+        });
+
+        before("/animals/:id/add-sighting", (req, res) -> {
             if (req.attribute("username") == null) {
                 res.redirect("/");
                 halt();
@@ -41,7 +55,7 @@ public class App {
 
         post("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
-            String username =  req.queryParams("username").toUpperCase();
+            String username = req.queryParams("username").toUpperCase();
             res.cookie("username", username);
             model.put("username", username);
             return new ModelAndView(model, "index.hbs");
@@ -59,5 +73,13 @@ public class App {
             model.put("animal", animalDao.getById(id));
             return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/animals/:id/add-sighting", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("animal", animalDao.getById(id));
+            return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
