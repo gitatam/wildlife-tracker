@@ -11,4 +11,6 @@ public interface AnimalDao {
     List<Animal> getAll();
 
     void clearAll();
+
+    Animal getById(int id);
 }
