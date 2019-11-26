@@ -2,6 +2,7 @@ import dao.AnimalDao;
 import dao.SightingDao;
 import dao.Sql2oAnimalDao;
 import dao.Sql2oSightingDao;
+import model.Animal;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -50,6 +51,13 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             model.put("animals", animalDao.getAll());
             return new ModelAndView(model, "animals.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/animals/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("animal", animalDao.getById(id));
+            return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }
