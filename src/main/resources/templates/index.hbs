@@ -1,5 +1,13 @@
 {{#if username }}
   {{#block "section" }} {{/block}}
+  {{#partial "content" }}
+    <div class="hero-image">
+      <div class="hero-text">
+        <h1 style="font-size:60px">Welcome to wildlife tracker.</h1>
+        <h5 class="font-italic">Where we have a passion for the conservation of the environment.</h5>
+      </div>
+    </div>
+  {{/partial}}
 {{ else }}
   {{#partial "nav-bar" }}
     <h2 p-5>Wildlife Tracker</h2>
