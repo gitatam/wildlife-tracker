@@ -1,0 +1,14 @@
+{{#partial "title"}} Animals {{/partial}}
+
+{{#partial "content"}}
+  <ul>
+    {{#each animals}}
+      <li>
+        <a href="/animals/{{ id }}">{{ name }}</a><br>
+      </li>
+    {{/each}}
+  </ul>
+
+{{/partial}}
+
+{{> base.hbs}}

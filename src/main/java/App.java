@@ -25,6 +25,13 @@ public class App {
             }
         } );
 
+        before("/animals", (req, res) -> {
+            if (req.attribute("username") == null) {
+                res.redirect("/");
+                halt();
+            }
+        });
+
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.attribute("username"));
@@ -37,6 +44,12 @@ public class App {
             res.cookie("username", username);
             model.put("username", username);
             return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/animals", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("animals", animalDao.getAll());
+            return new ModelAndView(model, "animals.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }
