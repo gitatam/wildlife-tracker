@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS sightings (
 	id SERIAL PRIMARY KEY,
     animal_id INTEGER,
     ranger VARCHAR,
+    age VARCHAR,
+    health VARCHAR,
     location VARCHAR,
     FOREIGN KEY(animal_id) REFERENCES public.animals(id)
 );

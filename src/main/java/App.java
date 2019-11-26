@@ -3,6 +3,7 @@ import dao.SightingDao;
 import dao.Sql2oAnimalDao;
 import dao.Sql2oSightingDao;
 import model.Animal;
+import model.Sighting;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -81,5 +82,18 @@ public class App {
             return new ModelAndView(model, "sightings.hbs");
         }, new HandlebarsTemplateEngine());
 
+        post("/animals/:id/add-sighting", (req, res) -> {
+            int animalId = Integer.parseInt(req.params("id"));
+            String ranger = req.attribute("username");
+            String age = req.queryParams("age");
+            String health = req.queryParams("health");
+            String location = req.queryParams("location");
+
+            Sighting sighting = new Sighting(animalId, ranger, age, health, location);
+            sighting.setAnimalId(animalId);
+            sightingDao.add(sighting);
+            res.redirect("/sightings");
+            return null;
+        }, new HandlebarsTemplateEngine());
     }
 }

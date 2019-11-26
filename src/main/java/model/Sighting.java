@@ -5,12 +5,22 @@ import java.sql.Timestamp;
 public class Sighting {
     private int id;
     private int animalId;
+    private String age;
+    private String health;
     private String ranger;
     private String location;
 
     public Sighting(int animalId, String ranger, String location) {
         this.animalId = animalId;
         this.ranger = ranger;
+        this.location = location;
+    }
+
+    public Sighting(int animalId, String ranger, String age, String health, String location) {
+        this.animalId = animalId;
+        this.ranger = ranger;
+        this.age = age;
+        this.health = health;
         this.location = location;
     }
 
@@ -44,6 +54,22 @@ public class Sighting {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
     }
 
     @Override

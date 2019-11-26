@@ -26,17 +26,17 @@
             <label for="age" class="text-secondary">Select the most appropriate age:</label><br>
             <div class="form-check-inline">
               <label class="form-check-label" for="newborn">
-                <input type="radio" class="form-check-input" id="newborn" name="newborn" value="New Born">New Born
+                <input type="radio" class="form-check-input" id="newborn" name="age" value="New Born">New Born
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label" for="young">
-                <input type="radio" class="form-check-input" id="young" name="young" value="Young"> Young
+                <input type="radio" class="form-check-input" id="young" name="age" value="Young"> Young
               </label>
             </div>
             <div class="form-check-inline" for="adult">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" id="adult" name="adult" value="Adult" checked> Adult
+                <input type="radio" class="form-check-input" id="adult" name="age" value="Adult"> Adult
               </label>
             </div>
             <br>
@@ -47,20 +47,33 @@
             <label for="age" class="text-secondary">How healthy is the animal?</label><br>
             <div class="form-check-inline">
               <label class="form-check-label" for="healthy">
-                <input type="radio" class="form-check-input" id="healthy" name="healthy" value="Healthy">Healthy
+                <input type="radio" class="form-check-input" id="healthy" name="health" value="Healthy">Healthy
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label" for="okay">
-                <input type="radio" class="form-check-input" id="okay" name="okay" value="Okay" checked> Okay
+                <input type="radio" class="form-check-input" id="okay" name="health" value="Okay"> Okay
               </label>
             </div>
             <div class="form-check-inline" for="ill">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" id="ill" name="ill" value="Ill"> Ill
+                <input type="radio" class="form-check-input" id="ill" name="health" value="Ill"> Ill
               </label>
             </div>
+            <br>
             <!--end health-->
+
+
+            <!--start location-->
+            <label for="name" class="text-secondary">Select the location sighted:</label>
+            <select class="form-control text-dark" name="location" id="location" required>
+              <option disabled></option>
+              <option>Zone A</option>
+              <option>Near the River</option>
+              <option>NE Quadrant</option>
+            </select>
+            <br>
+            <!--end location-->
 
           </div>
           <button class="btn btn-secondary btn-dark btn-block">Submit</button>
