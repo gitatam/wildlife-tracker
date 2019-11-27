@@ -21,4 +21,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+applicationName = "gitthecomeup2"
 mainClassName = 'App'
+task stage(dependsOn: ['clean', 'installDist'])
