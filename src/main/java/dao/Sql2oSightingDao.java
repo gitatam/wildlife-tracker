@@ -42,7 +42,7 @@ public class Sql2oSightingDao implements SightingDao {
     public List<Sighting> findByAnimalId(int animalId) {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM sightings WHERE animal_id = :animal_id")
-                    .addColumnMapping("ANIMAL_ID", "animalId")
+                    .addColumnMapping("animal_id", "animalId")
                     .addParameter("animal_id", animalId)
                     .executeAndFetch(Sighting.class);
         }

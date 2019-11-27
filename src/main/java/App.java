@@ -2,6 +2,8 @@ import dao.AnimalDao;
 import dao.SightingDao;
 import dao.Sql2oAnimalDao;
 import dao.Sql2oSightingDao;
+import exc.ApiError;
+import exc.DaoException;
 import model.Animal;
 import model.Sighting;
 import org.sql2o.Sql2o;
@@ -79,10 +81,11 @@ public class App {
             int id = Integer.parseInt(req.params("id"));
             Map<String, Object> model = new HashMap<>();
             model.put("animal", animalDao.getById(id));
-            return new ModelAndView(model, "sightings.hbs");
+            return new ModelAndView(model, "add-sighting.hbs");
         }, new HandlebarsTemplateEngine());
 
         post("/animals/:id/add-sighting", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
             int animalId = Integer.parseInt(req.params("id"));
             String ranger = req.attribute("username");
             String age = req.queryParams("age");
@@ -91,9 +94,20 @@ public class App {
 
             Sighting sighting = new Sighting(animalId, ranger, age, health, location);
             sighting.setAnimalId(animalId);
-            sightingDao.add(sighting);
-            res.redirect("/sightings");
-            return null;
+            try {
+                sightingDao.add(sighting);
+                model.put("sightings", sighting);
+            } catch (DaoException exc) {
+                throw new ApiError(500, exc.getLocalizedMessage());
+            }
+            return new ModelAndView(model, "custom-sighting.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/sightings", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("sightings", sightingDao.getAll());
+            return new ModelAndView(model, "sightings.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }

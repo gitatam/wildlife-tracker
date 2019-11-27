@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import spark.Spark;
 
 import java.util.List;
 
@@ -55,10 +56,40 @@ public class Sql2oSightingDaoTest {
         assertEquals(2, reviews.size());
     }
 
+    @Test
+    public void getAll_FindsMultipleSightingsWhenTheyExistForAnAnimal_3() throws Exception{
+        sightingDao.add(new Sighting(animal.getId(), "ranger", "age", "health", "location"));
+        sightingDao.add(new Sighting(animal.getId(), "ranger", "age", "health", "location"));
+        sightingDao.add(new Sighting(animal.getId(), "ranger", "age", "health", "location"));
+
+        List<Sighting> reviews = sightingDao.findByAnimalId(animal.getId());
+        assertEquals(3, reviews.size());
+    }
+
     @Test(expected = DaoException.class)
     public void add_AddingSightingsToNonExistentAnimalFails_DaoException() throws Exception {
-        Sighting sighting = new Sighting(42, "Ranger One", "Zone A");
+        Sighting sighting = new Sighting(42, "Ranger One","Zone A");
         sightingDao.add(sighting);
     }
+
+    @Test(expected = DaoException.class)
+    public void add_AddingSightingsToNonExistentAnimalFails2_DaoException() throws Exception {
+        Sighting sighting = new Sighting(45, "Ranger One","age", "health", "location");
+        sightingDao.add(sighting);
+    }
+
+    //TODO: Make this work
+//    @Test
+//    public void getAll_ReturnsAddedSightings_true() throws Exception{
+//        Sighting sighting = new Sighting(1, "ranger", "age", "health", "location");
+//        sightingDao.add(sighting);
+//
+//        assertEquals(1, sightingDao.getAll().size());
+//    }
+//
+//    @Test
+//    public void getAll_WhenNullReturnsEmptyList_true() {
+//        assertEquals(0, sightingDao.getAll().size());
+//    }
 
 }
